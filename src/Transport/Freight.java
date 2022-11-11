@@ -1,41 +1,28 @@
 package Transport;
 
-public class Freight extends Car implements Competing{
+public class Freight extends Car implements Competing {
 
-    public enum LoadCapacity {
-        LC_N1("с полной массой до 3,5 тонн"),
-        LC_N2("с полной массой свыше 3,5 до 12 тонн"),
-        LC_N3("с полной массой свыше 12 тонн");
-
-        public String infoLC;
-
-        LoadCapacity(String infoLC) {
-            this.infoLC = infoLC;
-        }
-
-        public String getInfoLC() {
-            return infoLC;
-        }
-
-        public void setInfoLC(String infoLC) {
-            if (infoLC == null || infoLC.isEmpty()) {
-                this.infoLC = "Информация не указана";
-            } else {
-                this.infoLC = infoLC;
-            }
-        }
-    }
+    private LoadCapacity loadCapacity;
     public double[] timeOfLap;
     public int bestSpeed;
 
-    public Freight(String brand, String model, double engine, double[]timeOfLap,int bestSpeed, LoadCapacity loadCapacity) {
+    public Freight(String brand, String model, double engine, double[] timeOfLap, int bestSpeed, LoadCapacity loadCapacity) {
         super(brand, model, engine);
         this.timeOfLap = timeOfLap;
+        this.loadCapacity = loadCapacity;
         if (bestSpeed <= 0) {
             this.bestSpeed = bestSpeed;
         } else {
             this.bestSpeed = bestSpeed;
         }
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(LoadCapacity loadCapacity) {
+        this.loadCapacity = loadCapacity;
     }
 
     public double[] getTimeOfLap() {
@@ -63,7 +50,17 @@ public class Freight extends Car implements Competing{
     }
 
     @Override
-    public void maxSpeed () {
+    public void maxSpeed() {
         System.out.println("Максимальная скорость составила: " + bestSpeed);
+    }
+
+    public void printType() {
+        if (loadCapacity == null) {
+            System.out.println("Данных по авто недостаточно");
+        } else {
+            String from = loadCapacity.getFrom() == null ? "" : "от " + loadCapacity.getFrom() + " ";
+            String to = loadCapacity.getTo() == null ? "" : "до " + loadCapacity.getTo();
+            System.out.println("Грузоподъемность авто: " + from + to);
+        }
     }
 }

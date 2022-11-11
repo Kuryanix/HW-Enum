@@ -1,45 +1,30 @@
 package Transport;
 
-public class Bus extends Car implements Competing{
+public class Bus extends Car implements Competing {
 
-    public enum Capacity {
-        CPT_VERY_SMALL("до 10 мест"),
-        CPT_SMALL("до 25 мест"),
-        CPT_MID("от 40 до 60 мест"),
-        CPT_BIG("от 60 до 80 мест"),
-        CPT_VERY_BIG("от 100 до 120 мест");
-
-        public String infoCPT;
-
-        Capacity(String infoCPT) {
-            this.infoCPT = infoCPT;
-
-        }
-
-        public String getInfoCPT() {
-            return infoCPT;
-        }
-
-        public void setInfoCPT(String infoCPT) {
-            if (infoCPT == null || infoCPT.isEmpty()) {
-                this.infoCPT = "Информация не указана";
-            } else {
-                this.infoCPT = infoCPT;
-            }
-        }
-    }
+    private Capacity capacity;
     public double[] timeOfLap;
     public int bestSpeed;
 
-    public Bus(String brand, String model, double engine, double[]timeOfLap, int bestSpeed, Capacity capacity) {
+    public Bus(String brand, String model, double engine, double[] timeOfLap, int bestSpeed, Capacity capacity) {
         super(brand, model, engine);
         this.timeOfLap = timeOfLap;
+        this.capacity = capacity;
         if (bestSpeed <= 0) {
             this.bestSpeed = bestSpeed;
         } else {
             this.bestSpeed = bestSpeed;
         }
     }
+
+    public Capacity getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Capacity capacity) {
+        this.capacity = capacity;
+    }
+
     public double[] getTimeOfLap() {
         return timeOfLap;
     }
@@ -65,7 +50,16 @@ public class Bus extends Car implements Competing{
     }
 
     @Override
-    public void maxSpeed () {
+    public void maxSpeed() {
         System.out.println("Максимальная скорость составила: " + bestSpeed);
+    }
+
+    @Override
+    public void printType() {
+        if (capacity == null) {
+            System.out.println("Данных по авто недостаточно");
+        } else {
+            System.out.println("Внестимость автобуса: от " + capacity.getFrom() + " до " + capacity.getTo());
+        }
     }
 }

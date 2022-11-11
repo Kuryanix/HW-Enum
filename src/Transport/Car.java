@@ -56,7 +56,6 @@ public abstract class Car {
         System.out.println("Название: " + getBrand() + ", модель: " + getModel() + ", объем двигателя: " + getEngine());
     }
 
-    public void checkType(String info) {
-    }
+    public abstract void printType();
 
 }
